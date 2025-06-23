@@ -1,3 +1,4 @@
+'use client';
 import Head from 'next/head';
 import { useForm, FieldError } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
