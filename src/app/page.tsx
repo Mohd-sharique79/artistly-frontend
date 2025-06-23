@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Head from 'next/head';
 import { useRouter } from 'next/navigation';
+import Navbar from '@/components/ui/Navbar';
 import Link from 'next/link';
 
 export default function Home() {
@@ -14,25 +15,7 @@ export default function Home() {
         <meta name="description" content="Discover and book singers, dancers, speakers, and DJs for your next event. Artistly.com connects event planners with top performing artists." />
       </Head>
       <div className="flex flex-col min-h-screen">
-        <header className="bg-background border-b px-4 lg:px-6 h-14 flex items-center">
-          <Link className="flex items-center justify-center" href="/">
-            <span className="font-semibold">Artistly</span>
-          </Link>
-          <nav className="ml-auto flex gap-4 sm:gap-6">
-            <Link className="text-sm font-medium hover:underline underline-offset-4" href="/">
-              Home
-            </Link>
-            <Link className="text-sm font-medium hover:underline underline-offset-4" href="/artists">
-              Artists
-            </Link>
-            <Link className="text-sm font-medium hover:underline underline-offset-4" href="/onboarding">
-              For Artists
-            </Link>
-            <Link className="text-sm font-medium hover:underline underline-offset-4" href="/contact">
-              Contact
-            </Link>
-          </nav>
-        </header>
+        <Navbar />
         <main className="flex-1 w-full">
           <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
             <div className="px-4 md:px-6">

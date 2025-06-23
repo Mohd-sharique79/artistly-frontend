@@ -8,9 +8,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import artistsData from '@/data/artists.json';
-import Link from 'next/link';
 import Head from 'next/head';
 import { useSearchParams } from 'next/navigation';
+import Navbar from '@/components/ui/Navbar';
 
 interface Artist {
   id: number;
@@ -139,22 +139,7 @@ export default function ArtistListPage() {
         <meta name="description" content="Browse and filter performing artists by category, price, and location. Find the perfect artist for your event on Artistly.com." />
       </Head>
       <div className="flex flex-col min-h-screen">
-        <header className="bg-background border-b px-4 lg:px-6 h-14 flex items-center">
-          <Link className="flex items-center justify-center" href="/">
-            <span className="font-semibold">Artistly</span>
-          </Link>
-          <nav className="ml-auto flex gap-4 sm:gap-6">
-            <Link className="text-sm font-medium hover:underline underline-offset-4" href="/">
-              Home
-            </Link>
-            <Link className="text-sm font-medium hover:underline underline-offset-4" href="/artists">
-              Artists
-            </Link>
-            <Link className="text-sm font-medium hover:underline underline-offset-4" href="/onboarding">
-              For Artists
-            </Link>
-          </nav>
-        </header>
+        <Navbar />
         <Suspense fallback={<div>Loading...</div>}>
           <ArtistListClient artistsData={artistsData} />
         </Suspense>

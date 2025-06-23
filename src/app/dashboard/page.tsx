@@ -18,8 +18,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import Link from 'next/link';
 import Head from 'next/head';
+import Navbar from '@/components/ui/Navbar';
 
 interface ArtistSubmission {
   id: number;
@@ -60,15 +60,7 @@ export default function DashboardPage() {
       </Head>
       <Dialog>
         <div className="flex flex-col min-h-screen">
-          <header className="bg-background border-b px-4 lg:px-6 h-14 flex items-center">
-            <Link className="flex items-center justify-center" href="/">
-              <span className="font-semibold">Artistly Dashboard</span>
-            </Link>
-            <nav className="ml-auto flex gap-4 sm:gap-6">
-              <Link className="text-sm font-medium hover:underline underline-offset-4" href="/">Home</Link>
-              <Link className="text-sm font-medium hover:underline underline-offset-4" href="/onboarding">For Artists</Link>
-            </nav>
-          </header>
+          <Navbar dashboard />
           <main className="flex-1 p-4 md:p-6">
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-2xl font-bold">Artist Submissions</h1>

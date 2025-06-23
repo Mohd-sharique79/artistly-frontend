@@ -10,8 +10,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import Link from 'next/link';
 import Head from 'next/head';
+import Navbar from '@/components/ui/Navbar';
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
@@ -61,17 +61,7 @@ export default function OnboardingPage() {
         <meta name="description" content="Onboard as a performing artist on Artistly.com. Submit your profile, categories, languages, and more to get discovered by event planners." />
       </Head>
       <div className="flex flex-col min-h-screen">
-        <header className="bg-background border-b px-4 lg:px-6 h-14 flex items-center">
-          <Link className="flex items-center justify-center" href="/">
-            <span className="font-semibold">Artistly</span>
-          </Link>
-          <nav className="ml-auto flex gap-4 sm:gap-6">
-            <Link className="text-sm font-medium hover:underline underline-offset-4" href="/">Home</Link>
-            <Link className="text-sm font-medium hover:underline underline-offset-4" href="/artists">Artists</Link>
-            <Link className="text-sm font-medium hover:underline underline-offset-4" href="/onboarding">For Artists</Link>
-            <Link className="text-sm font-medium hover:underline underline-offset-4" href="/dashboard">Dashboard</Link>
-          </nav>
-        </header>
+        <Navbar dashboard />
         <main className="flex-1 flex items-center justify-center p-4 md:p-6 bg-muted">
           <div className="w-full max-w-2xl p-8 space-y-4 bg-card text-card-foreground rounded-lg shadow-lg">
             <h1 className="text-2xl font-bold text-center">Artist Onboarding</h1>
