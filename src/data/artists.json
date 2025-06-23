@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "name": "Elena Vox",
+    "category": "Singer",
+    "priceRange": "$500 - $1000",
+    "location": "New York, NY"
+  },
+  {
+    "id": 2,
+    "name": "David Fusion",
+    "category": "DJ",
+    "priceRange": "$800 - $1500",
+    "location": "Los Angeles, CA"
+  },
+  {
+    "id": 3,
+    "name": "The Groove Syndicate",
+    "category": "Dancer",
+    "priceRange": "$1200 - $2000",
+    "location": "Chicago, IL"
+  },
+  {
+    "id": 4,
+    "name": "Dr. Evelyn Reed",
+    "category": "Speaker",
+    "priceRange": "$1500 - $3000",
+    "location": "San Francisco, CA"
+  },
+  {
+    "id": 5,
+    "name": "Acoustic Harmony",
+    "category": "Singer",
+    "priceRange": "$400 - $800",
+    "location": "Austin, TX"
+  },
+  {
+    "id": 6,
+    "name": "DJ Spinmaster",
+    "category": "DJ",
+    "priceRange": "$1000 - $1800",
+    "location": "Miami, FL"
+  },
+  {
+    "id": 7,
+    "name": "Momentum Dance Crew",
+    "category": "Dancer",
+    "priceRange": "$2000 - $3500",
+    "location": "Las Vegas, NV"
+  },
+  {
+    "id": 8,
+    "name": "Prof. Alistair Finch",
+    "category": "Speaker",
+    "priceRange": "$2500 - $5000",
+    "location": "Boston, MA"
+  }
+]
