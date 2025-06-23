@@ -1,6 +1,7 @@
 'use client';
+export const dynamic = "force-dynamic";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -19,7 +20,7 @@ interface Artist {
   location: string;
 }
 
-export default function ArtistListPage() {
+function ArtistListClient({ artistsData }: { artistsData: Artist[] }) {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get('category') || 'all';
   const [category, setCategory] = useState(initialCategory);
@@ -54,7 +55,7 @@ export default function ArtistListPage() {
     }
 
     setFilteredArtists(filtered);
-  }, [category, price, location]);
+  }, [category, price, location, artistsData]);
 
   const clearFilters = () => {
     setCategory('all');
@@ -62,6 +63,75 @@ export default function ArtistListPage() {
     setLocation('');
   };
 
+  return (
+    <main className="flex-1 p-4 md:p-6">
+      <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">
+        Our Artists
+      </h1>
+      <div className="flex flex-col md:flex-row gap-4 mb-8">
+        <div className="flex-1">
+          <Label htmlFor="category">Category</Label>
+          <Select value={category} onValueChange={setCategory}>
+            <SelectTrigger id="category">
+              <SelectValue placeholder="Select a category" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All</SelectItem>
+              <SelectItem value="Singer">Singer</SelectItem>
+              <SelectItem value="Dancer">Dancer</SelectItem>
+              <SelectItem value="Speaker">Speaker</SelectItem>
+              <SelectItem value="DJ">DJ</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="flex-1">
+          <Label htmlFor="price">Price Range</Label>
+          <Select value={price} onValueChange={setPrice}>
+            <SelectTrigger id="price">
+              <SelectValue placeholder="Select a price range" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All</SelectItem>
+              <SelectItem value="$0-1000">$0 - $1000</SelectItem>
+              <SelectItem value="$1000-2000">$1000 - $2000</SelectItem>
+              <SelectItem value="$2000-100000">$2000+</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="flex-1">
+          <Label htmlFor="location">Location</Label>
+          <Input
+            id="location"
+            placeholder="Enter a city or state"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+          />
+        </div>
+        <div className="flex items-end">
+          <Button onClick={clearFilters} variant="outline">Clear Filters</Button>
+        </div>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {filteredArtists.map((artist) => (
+          <Card key={artist.id}>
+            <CardHeader>
+              <CardTitle>{artist.name}</CardTitle>
+              <CardDescription>{artist.category}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground">{artist.location}</p>
+              <p className="text-sm font-semibold">{artist.priceRange}</p>
+              <Button className="w-full mt-4">Ask for Quote</Button>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </main>
+  );
+}
+
+export default function ArtistListPage() {
+  // This is a server component
   return (
     <>
       <Head>
@@ -85,69 +155,9 @@ export default function ArtistListPage() {
             </Link>
           </nav>
         </header>
-        <main className="flex-1 p-4 md:p-6">
-          <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">
-            Our Artists
-          </h1>
-          <div className="flex flex-col md:flex-row gap-4 mb-8">
-            <div className="flex-1">
-              <Label htmlFor="category">Category</Label>
-              <Select value={category} onValueChange={setCategory}>
-                <SelectTrigger id="category">
-                  <SelectValue placeholder="Select a category" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All</SelectItem>
-                  <SelectItem value="Singer">Singer</SelectItem>
-                  <SelectItem value="Dancer">Dancer</SelectItem>
-                  <SelectItem value="Speaker">Speaker</SelectItem>
-                  <SelectItem value="DJ">DJ</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="flex-1">
-              <Label htmlFor="price">Price Range</Label>
-              <Select value={price} onValueChange={setPrice}>
-                <SelectTrigger id="price">
-                  <SelectValue placeholder="Select a price range" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All</SelectItem>
-                  <SelectItem value="$0-1000">$0 - $1000</SelectItem>
-                  <SelectItem value="$1000-2000">$1000 - $2000</SelectItem>
-                  <SelectItem value="$2000-100000">$2000+</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="flex-1">
-              <Label htmlFor="location">Location</Label>
-              <Input
-                id="location"
-                placeholder="Enter a city or state"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-              />
-            </div>
-            <div className="flex items-end">
-              <Button onClick={clearFilters} variant="outline">Clear Filters</Button>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredArtists.map((artist) => (
-              <Card key={artist.id}>
-                <CardHeader>
-                  <CardTitle>{artist.name}</CardTitle>
-                  <CardDescription>{artist.category}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">{artist.location}</p>
-                  <p className="text-sm font-semibold">{artist.priceRange}</p>
-                  <Button className="w-full mt-4">Ask for Quote</Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </main>
+        <Suspense fallback={<div>Loading...</div>}>
+          <ArtistListClient artistsData={artistsData} />
+        </Suspense>
         <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
           <p className="text-xs text-muted-foreground">© 2024 Artistly. All rights reserved.</p>
         </footer>
